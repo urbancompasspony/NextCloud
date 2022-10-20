@@ -17,6 +17,10 @@ mysqldump --single-transaction -h [server] -u [username] -p[password] [db_name] 
 
 mysqldump --single-transaction --default-character-set=utf8mb4 -h [server] -u [username] -p[password] [db_name] > nextcloud-sqlbkp_`date +"%Y%m%d"`.bak
 
+OU pare o serviço MySQL e .tar a pasta /var/lib/mysql:
+
+sudo tar -cvf /home/administrador/archive.tar -C /var/lib/mysql .
+
 4- Restaure as pastas no novo endereço:
 
 rsync -vaAxhHt nextcloud-dirbkp/ nextcloud/
@@ -32,17 +36,23 @@ If you use UTF8 with multibyte support (e.g. for emojis in filenames), use:
 mysql -h [server] -u [username] -p[password] -e "DROP DATABASE nextcloud"
 mysql -h [server] -u [username] -p[password] -e "CREATE DATABASE nextcloud CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci"
 
-6- Conclua a restauração:
-
 mysql -h [server] -u [username] -p[password] [db_name] < nextcloud-sqlbkp.bak
+
+Se usou TAR. volte com (caso seja Docker):
+
+sudo tar -xvf /home/administrador/archive.tar -C /srv/containers/mysql/mysql/
 
 7- Conferir se um novo Data-Fingerprint em /config/config.php foi gerado. Se não, rode:
 maintenance:data-fingerprint
 
-Change /data permissions set as root user: sudo -i
+Mude as permissões em /data como usuário root: sudo -i
 
 chown www-data:www-data
 
 find /mnt/temp/data -type f -print0 | xargs -0 chmod 0640
 
 find /mnt/temp/data -type d -print0 | xargs -0 chmod 0750
+
+Inicie os serviços e utilize as credenciais do banco de dados.
+
+Crie um novo usuário administrador.
