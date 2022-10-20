@@ -1,6 +1,6 @@
 # NextCloud
 
-## Migrating Server
+# Para migrar o servidor, vai precidar de 3 coisas fundamentais: A pasta nextcloud em /var/www, o banco de dados MYSQL em /var/lib/mysql e a pasta /data aonde ela estiver. Para tal, faça:
 
 1- Pare o nextcloud na máquina original e coloque-o em modo Manutenção.
 Espere de 6 a 8 minutos até o sincronismo concluir.
