@@ -9,7 +9,7 @@ sudo -u www-data php occ maintenance:mode --on
 
 2- Copie toda a estrutura do Nextcloud:
 
-rsync -Aavx nextcloud/ nextcloud-dirbkp_`date +"%Y%m%d"`/
+rsync -Aavx nextcloud/ nextcloud-dirbkp/
 
 3- Exporte o banco de dados:
 
@@ -23,7 +23,7 @@ sudo tar -cvf /home/administrador/archive.tar -C /var/lib/mysql .
 
 4- Restaure as pastas no novo endereço:
 
-rsync -vaAxhHt nextcloud-dirbkp/ nextcloud/
+rsync -Aavx nextcloud-dirbkp/ nextcloud/
 
 5- Restaure o banco de dados:
 
