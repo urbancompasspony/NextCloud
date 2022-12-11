@@ -1,0 +1,8 @@
+sudo -u USERNAME php occ maintenance:mode --on
+
+mysql -u <mysql_user> -p -D <nc_database_name> -e "DELETE FROM oc_file_locks WHERE 1"
+
+sudo -u USERNAME php occ maintenance:mode --off
+
+sudo -u USERNAME php occ files:scan --all
+sudo -u USERNAME php occ files:cleanup
